@@ -22,16 +22,16 @@ def numpy_to_pil(images):
 
 # check and replace nsfw content
 def check_safety(x_image):
-    global safety_feature_extractor, safety_checker
+    # global safety_feature_extractor, safety_checker
 
-    if safety_feature_extractor is None:
-        safety_feature_extractor = AutoFeatureExtractor.from_pretrained(safety_model_id)
-        safety_checker = StableDiffusionSafetyChecker.from_pretrained(safety_model_id)
+    # if safety_feature_extractor is None:
+    #     safety_feature_extractor = AutoFeatureExtractor.from_pretrained(safety_model_id)
+    #     safety_checker = StableDiffusionSafetyChecker.from_pretrained(safety_model_id)
 
-    safety_checker_input = safety_feature_extractor(numpy_to_pil(x_image), return_tensors="pt")
-    x_checked_image, has_nsfw_concept = safety_checker(images=x_image, clip_input=safety_checker_input.pixel_values)
+    # safety_checker_input = safety_feature_extractor(numpy_to_pil(x_image), return_tensors="pt")
+    x_checked_image = x_samples_ddim
 
-    return x_checked_image, has_nsfw_concept
+    return x_checked_image, False
 
 
 def censor_batch(x):
